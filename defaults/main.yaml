@@ -1,0 +1,42 @@
+---
+
+# Default parameters for the fastestmirror plugin
+yum_plugin_fastestmirror_main_enabled: 1
+yum_plugin_fastestmirror_main_verbose: 0
+yum_plugin_fastestmirror_main_always_print_best_host: 'true'
+yum_plugin_fastestmirror_main_socket_timeout: 3
+yum_plugin_fastestmirror_main_hostfilepath: timedhosts.txt
+yum_plugin_fastestmirror_main_maxhostfileage: 10
+yum_plugin_fastestmirror_main_maxthreads: 15
+
+# Default custom parameters for the fastestmirror plugin
+yum_plugin_fastestmirror_main__custom: {}
+
+# Default main section of the fastestmirror plugin
+yum_plugin_fastestmirror_main:
+  enabled: "{{ yum_plugin_fastestmirror_main_enabled }}"
+  verbose: "{{ yum_plugin_fastestmirror_main_verbose }}"
+  always_print_best_host: "{{ yum_plugin_fastestmirror_main_always_print_best_host }}"
+  socket_timeout: "{{ yum_plugin_fastestmirror_main_socket_timeout }}"
+  hostfilepath: "{{ yum_plugin_fastestmirror_main_hostfilepath }}"
+  maxhostfileage: "{{ yum_plugin_fastestmirror_main_maxhostfileage }}"
+  maxthreads: "{{ yum_plugin_fastestmirror_main_maxthreads }}"
+
+# Default configuration of the fastestmirror plugin
+yum_plugin_fastestmirror:
+  fastestmirror:
+    main: "{{
+      yum_plugin_fastestmirror_main__custom.update(
+      yum_plugin_fastestmirror_main)
+    }}{{ yum_plugin_fastestmirror_main__custom }}"
+
+
+# Configuration for custom plugins
+yum_plugin__custom: {}
+
+
+# Configuration for all plugins
+yum_plugin_config: "{{
+    yum_plugin__custom.update(
+    yum_plugin_fastestmirror)
+  }}{{ yum_plugin__custom }}"
