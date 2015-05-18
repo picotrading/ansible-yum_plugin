@@ -8,7 +8,7 @@
 - name: Install the YUM plugin package
   yum:
     name: "yum-plugin-{{ item.key }}"
-    state: installed
+    state: present
   with_dict: yum_plugin_config
   tags:
     - yum_plugin_pkg
