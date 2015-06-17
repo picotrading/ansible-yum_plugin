@@ -7,7 +7,7 @@
 
 - name: Install the YUM plugin package
   yum:
-    name: "yum-plugin-{{ item.key }}"
+    name: "yum-{{ 'plugin-' if ansible_distribution_major_version | int >= 6 else '' }}{{ item.key }}"
     state: present
   with_dict: yum_plugin_config
   tags:
